@@ -1,0 +1,39 @@
+<div class="container-fluid bg-indigo">
+    <div class="row vh-100 justify-content-center align-items-center">
+        <div class="col-lg-8">
+            <div class="rounded bg-white shadow-sm">
+                <div class="row gx-0">
+                    <div class="col-lg-6 d-none d-lg-block">
+                        <img class="img-fluid rounded-start" src="https://source.unsplash.com/random/600x800">
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <h3 class="text-center mb-4">Welcome Back</h3>
+                            <% if (loginFailMessage[0]) { %>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                   <%= loginFailMessage[0].message %>
+                                   <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                               <% } %>
+                            <form action="/user/login-process" method="post">
+                                <input name="email" type="email" class="form-control mb-2 rounded-pill p-3" placeholder="Email Address" 
+                                    value="<% if (loginFailMessage[0]) { %>
+                                     <%= loginFailMessage[0].email %> 
+                                    <% } %>">
+                                <input name="password" type="password" class="form-control mb-2 rounded-pill p-3" placeholder="Password">
+                                <hr>
+                                <button type="submit" class="btn w-100 fw-bold btn-primary rounded-pill p-3 fs-5"><i class="fas fa-sign-in-alt"></i> Login</button>
+                            </form>
+                            <hr>
+                            <button class="btn w-100 btn-danger rounded-pill mb-2 p-2"><i class="fab fa-google"></i> Login with Google</button>
+                            <button class="btn w-100 btn-primary rounded-pill p-2"><i class="fab fa-facebook"></i> Login with Facebook</button>
+                            <hr>
+                            <small class="w-100 d-inline-block text-center"><a href="/user/forgot-password">Forgot Password ?</a></small>
+                            <small class="w-100 d-inline-block text-center"><a href="/user/register">Create an Account!</a></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
