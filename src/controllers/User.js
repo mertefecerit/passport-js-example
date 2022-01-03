@@ -1,8 +1,9 @@
 const { validationResult } = require("express-validator");
-const {insert} = require('../services/User');
+const {insert, read, activateUser} = require('../services/User');
 const passport = require('passport');
 require('../authentication/strategies/passportLocal');
 const mailler = require('../services/Mailler');
+const JWT = require('jsonwebtoken');
 
 const index = async (req, res) => {
     const successMessage = await req.consumeFlash('loginSuccess');
@@ -11,8 +12,9 @@ const index = async (req, res) => {
 
 const loginPage = async (req, res) => {
     const loginFailMessage = await req.consumeFlash('loginError');
+    const verifySuccess = await req.consumeFlash('verifySuccess');
     if(!req.user) {
-        res.render('user/login', {layout: './layout/auth', loginFailMessage});
+        res.render('user/login', {layout: './layout/auth', loginFailMessage,verifySuccess});
     }else{
         res.redirect('/user');
     }
@@ -85,6 +87,22 @@ const forgotPasswordProcess = (req, res) => {
 
 }
 
+const verify = (req, res) => {
+    const {email} = JWT.decode(req.params.token,process.env.JWT_SECRET_KEY);
+    activateUser(email)
+    .then(async (response) => {
+        if(response === null){
+            await req.flash('verifySuccess',{message:"The User was already activated you can login"});
+        }
+        await req.flash('verifySuccess',{message:"The User activated you can login"});
+        res.redirect('/user/login');
+    })
+    .catch(async (error) => {
+        await req.flash('fail','Server or DB Error');
+        res.redirect('register'); 
+    });
+}
+
 module.exports = {
     index,
     loginPage,
@@ -93,5 +111,6 @@ module.exports = {
     registerProcess,
     loginProcess,
     logoutProcess,
-    forgotPasswordProcess
+    forgotPasswordProcess,
+    verify
 }

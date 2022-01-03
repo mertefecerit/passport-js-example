@@ -14,7 +14,13 @@
                                    <%= loginFailMessage[0].message %>
                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                                 </div>
-                               <% } %>
+                            <% } %>
+                            <% if (verifySuccess[0]) { %>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <%= verifySuccess[0].message %>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                 </div>
+                            <% } %>
                             <form action="/user/login-process" method="post">
                                 <input name="email" type="email" class="form-control mb-2 rounded-pill p-3" placeholder="Email Address" 
                                     value="<% if (loginFailMessage[0]) { %>

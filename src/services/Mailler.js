@@ -17,7 +17,7 @@ const mailler = async (email) => {
         }
     });
     
-    const accountActivationUrl = `http://localhost:3000/verify=${token}`;
+    const accountActivationUrl = `http://localhost:3000/user/verify/${token}`;
     
     try{
         let info = await transporter.sendMail({
