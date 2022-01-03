@@ -11,7 +11,7 @@ const read = async (email) => {
 }
 
 const activateUser = async(email) => {
-    const user = UserModel.findOne({email});
+    const user = await UserModel.findOne({email});
     if(user.status===false){
         return await UserModel.findOneAndUpdate({email},{status:true});
     }

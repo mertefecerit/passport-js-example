@@ -17,11 +17,11 @@ const mailler = async (email) => {
         }
     });
     
-    const accountActivationUrl = `http://localhost:3000/user/verify/${token}`;
+    const accountActivationUrl = `https://mertefecerit.com/user/verify/${token}`;
     
     try{
         let info = await transporter.sendMail({
-            from:'Passportjs Example - <mertefecerit@gmail.com>',
+            from:'Mert Efe Cerit - <mertefecerit@gmail.com>',
             to: email,
             subject: 'Account Activation',
             text: '',
