@@ -5,7 +5,7 @@ Mongoose.connection.once("open", () => {
 })
 
 const MongoDBConnection = async () => {
-   await Mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.jsvxs.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`);
+   await Mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?authSource=admin`);
 } 
 
 module.exports = {
